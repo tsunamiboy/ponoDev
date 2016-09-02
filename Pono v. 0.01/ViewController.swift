@@ -16,12 +16,15 @@ class ViewController: UIViewController {
     @IBOutlet weak var clockViewLabel: UILabel!
     
     @IBOutlet weak var timerViewLabel: UILabel!
+    
+    @IBOutlet weak var elapsedTimeLabel: UILabel!
 
     
 //    var time = NSDate()
     
     var clockTimer: NSTimer?
     var seconds = 0
+    var elapsedTime = 0
     var timer = NSTimer()
     var timerIsOn = false
    
@@ -72,12 +75,17 @@ class ViewController: UIViewController {
     @IBAction func startButton(sender: AnyObject) {
         
         if timerIsOn == false {
+            timerViewLabel.text = "00"
+            elapsedTime = 0
             timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
             timerIsOn = true
         }
     }
     
+
     @IBAction func stopButton(sender: AnyObject) {
+        // save the elapsed time
+        elapsedTime = seconds
         timer.invalidate()
         timerIsOn = false
     }

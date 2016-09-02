@@ -23,13 +23,6 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2VU-qZ-Vlt">
-                                <rect key="frame" x="190" y="198" width="203" height="51"/>
-                                <color key="backgroundColor" red="0.66666666666666663" green="0.36003903255705155" blue="0.59884106423987804" alpha="1" colorSpace="calibratedRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Z1c-d1-zgq">
                                 <rect key="frame" x="126" y="100" width="347" height="51"/>
                                 <color key="backgroundColor" red="0.41983948869164095" green="0.66666666669999997" blue="0.35567620054630844" alpha="1" colorSpace="calibratedRGB"/>
@@ -67,11 +60,33 @@
                                     <action selector="startButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="NB8-kq-Sip"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Elapsed Time" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fX-fw-AyG">
+                                <rect key="frame" x="407" y="335" width="109" height="21"/>
+                                <color key="backgroundColor" red="0.88494628057434555" green="0.88494628057434555" blue="0.88494628057434555" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2VU-qZ-Vlt">
+                                <rect key="frame" x="237" y="202" width="109" height="51"/>
+                                <color key="backgroundColor" red="0.66666666666666663" green="0.36003903255705155" blue="0.59884106423987804" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aI9-nI-pof">
+                                <rect key="frame" x="407" y="274" width="109" height="51"/>
+                                <color key="backgroundColor" red="0.66666666669999997" green="0.54194916921781389" blue="0.4626323314058558" alpha="1" colorSpace="calibratedRGB"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="27"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.50316362209999999" green="1" blue="0.95738642819999997" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <connections>
                         <outlet property="clockViewLabel" destination="Z1c-d1-zgq" id="KQ5-DP-MgP"/>
+                        <outlet property="elapsedTimeLabel" destination="aI9-nI-pof" id="97H-fm-fti"/>
                         <outlet property="timerViewLabel" destination="2VU-qZ-Vlt" id="J4t-6r-lbP"/>
                     </connections>
                 </viewController>
