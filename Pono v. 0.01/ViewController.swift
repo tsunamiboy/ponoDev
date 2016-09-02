@@ -20,6 +20,7 @@ class ViewController: UIViewController {
     
 //    var time = NSDate()
     
+    var clockTimer: NSTimer?
     var seconds = 0
     var timer = NSTimer()
     var timerIsOn = false
@@ -39,14 +40,23 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-       
+  
+        clockTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateClock)), userInfo: nil, repeats: true)
+        
+        /*
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.updateClock), name: UIApplicationWillEnterForegroundNotification, object: nil)
             }
-    
-    deinit {
-        NSNotificationCenter.defaultCenter().removeObserver(self)
+*/
+
     }
 
+    deinit {
+        //        NSNotificationCenter.defaultCenter().removeObserver(self)
+        timer.invalidate()
+        clockTimer?.invalidate()
+    }   
+    
+    
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         updateClock()
