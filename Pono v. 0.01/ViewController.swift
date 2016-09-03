@@ -18,8 +18,8 @@ class ViewController: UIViewController {
     
     @IBAction func itemAStartButton(sender: AnyObject) {
         if timerIsOn == false {
-            //            timerViewLabel.text = "0"
-            elapsedTime = 0
+            timerViewLabel.text = "0"
+            seconds = 0
             timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
             timerIsOn = true
         }
@@ -92,8 +92,9 @@ class ViewController: UIViewController {
     
 
     @IBAction func stopButton(sender: AnyObject) {
+//        
         // save the elapsed time
-        elapsedTime = seconds
+        elapsedTime = elapsedTime + seconds
         elapsedTimeLabel.text = "\(elapsedTime)"
         timer.invalidate()
         timerIsOn = false
@@ -103,7 +104,7 @@ class ViewController: UIViewController {
 //        timer.invalidate()
         seconds = 0
         timerViewLabel.text = "\(seconds)"
-        elapsedTimeLabel.text = "\(seconds)"
+//        elapsedTimeLabel.text = "\(seconds)"
 //        timerIsOn = false
     }
     
