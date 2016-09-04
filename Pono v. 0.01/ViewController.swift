@@ -91,6 +91,15 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+ /*
+   Compress start functions so that the relevant table entry is selected within one function
+     Enable selection of appName value from A Dictionary
+     Enable radio button selection
+     Enable creation of the Dictionary key by input from text
+        Use random generation of value
+     Enable creation of the Dictionary value by drag and Drop of objects
+     Enable collection of the app... by detecting object id
+ */
     
     @IBAction func itemAStartButton(sender: AnyObject) {
         if itemDict["A"] == nil {
@@ -131,6 +140,10 @@ class ViewController: UIViewController {
         }
     }
 
+    /*
+ Compress stop functions so that one button stops the process that is running what happens is let driving Drop
+ */
+    
     @IBAction func stopAButton(sender: AnyObject) {
         if timerIsOn {
         var totalTimeUsed = itemDict["A"]!
