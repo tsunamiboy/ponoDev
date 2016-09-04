@@ -16,14 +16,6 @@ class ViewController: UIViewController {
     @IBOutlet weak var clockViewLabel: UILabel!
     
     
-    @IBAction func itemAStartButton(sender: AnyObject) {
-        if timerIsOn == false {
-            timerViewLabel.text = "0"
-            seconds = 0
-            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
-            timerIsOn = true
-        }
-    }
     @IBOutlet weak var timerViewLabel: UILabel!
     @IBOutlet weak var elapsedTimeLabel: UILabel!
 
@@ -31,11 +23,18 @@ class ViewController: UIViewController {
 //    var time = NSDate()
     
     var clockTimer: NSTimer?
-    var seconds = 0
+    
+//   replace elapsedTime: Int with dict [String(appl): Int(timeUsed)]
+    var itemDict: [String: Int ] = [:]
     var elapsedTime = 0
+    
+    var seconds = 0
     var timer = NSTimer()
     var timerIsOn = false
    
+    func loadDictItem(item: String) {
+        itemDict[(item)] = 0
+    }
     
     func updateTimer() {
         seconds += 1
@@ -81,7 +80,6 @@ class ViewController: UIViewController {
     
     
     @IBAction func startButton(sender: AnyObject) {
-//        
 //        if timerIsOn == false {
 ////            timerViewLabel.text = "0"
 //            elapsedTime = 0
@@ -90,14 +88,33 @@ class ViewController: UIViewController {
 //        }
     }
     
+    @IBAction func itemAStartButton(sender: AnyObject) {
+        if itemDict["A"] == nil {
+            loadDictItem("A")
+        }
+        if timerIsOn == false {
+            timerViewLabel.text = "0"
+            seconds = 0
+            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
+            timerIsOn = true
+        }
+    }
 
     @IBAction func stopButton(sender: AnyObject) {
 //        
         // save the elapsed time
-        elapsedTime = elapsedTime + seconds
-        elapsedTimeLabel.text = "\(elapsedTime)"
+//        elapsedTime = elapsedTime + seconds
+        if timerIsOn {
+        var totalTimeUsed = itemDict["A"]!
+//            print(totalTimeUsed)
+        totalTimeUsed = totalTimeUsed + seconds
+//            print(totalTimeUsed)
+        itemDict["A"] = totalTimeUsed
+//            print(itemDict["A"])
+        elapsedTimeLabel.text = "\(totalTimeUsed)"
         timer.invalidate()
         timerIsOn = false
+        }
     }
     
     @IBAction func refreshButton(sender: AnyObject) {
