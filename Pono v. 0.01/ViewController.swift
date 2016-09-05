@@ -24,7 +24,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var itemBTimerViewLabel: UILabel!
     @IBOutlet weak var itemCTimerViewLabel: UILabel!
     
-    @IBOutlet weak var errorCodeViewLabel: UILabel!
+    @IBOutlet weak var errCodeViewLabel: UILabel!
     
 //    var time = NSDate()
     
@@ -56,7 +56,7 @@ class ViewController: UIViewController {
         case "B": itemBTimerViewLabel.text = "\(seconds)"
         case "C": itemCTimerViewLabel.text = "\(seconds)"
         default:
-            errorCodeViewLabel.text = "Bad"
+            errCodeViewLabel.text = "Bad"
         }
     }
     
@@ -89,6 +89,36 @@ class ViewController: UIViewController {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+
+/*
+ compress 3 timer-refresh labels to 1
+*/
+    
+    @IBAction func refreshButton(sender: AnyObject) {
+        //        timer.invalidate()
+        seconds = 0
+        itemATimerViewLabel.text = "\(seconds)"
+        itemBTimerViewLabel.text = "\(seconds)"
+        itemCTimerViewLabel.text = "\(seconds)"
+        //        timerIsOn = false
+    }
+    
+    @IBAction func stopButton(sender: AnyObject) {
+        if timerIsOn == false {
+            errCodeViewLabel.text = "Timer is not running"
+        }
+        if timerIsOn {
+            var totalTimeUsed = itemDict["A"]!
+            //            print(totalTimeUsed)
+            totalTimeUsed = totalTimeUsed + seconds
+            //            print(totalTimeUsed)
+            itemDict["A"] = totalTimeUsed
+            //            print(itemDict["A"])
+            itemATimeUsedLabel.text = "\(totalTimeUsed)"
+            timer.invalidate()
+            timerIsOn = false
+        }
     }
     
  /*
@@ -141,9 +171,12 @@ class ViewController: UIViewController {
     }
 
     /*
- Compress stop functions so that one button stops the process that is running what happens is let driving Drop
+ Compress 3 stop buttons to 1
+ Compress 3 timer labels to 1
+ Display time totals of all apps
  */
-    
+ 
+/*
     @IBAction func stopAButton(sender: AnyObject) {
         if timerIsOn {
         var totalTimeUsed = itemDict["A"]!
@@ -185,17 +218,7 @@ class ViewController: UIViewController {
             timerIsOn = false
         }
     }
-    
-    @IBAction func refreshButton(sender: AnyObject) {
-//        timer.invalidate()
-        seconds = 0
-        itemATimerViewLabel.text = "\(seconds)"
-        itemBTimerViewLabel.text = "\(seconds)"
-        itemCTimerViewLabel.text = "\(seconds)"
-//        timerIsOn = false
-    }
-    
-
+ */
 
 }
 
