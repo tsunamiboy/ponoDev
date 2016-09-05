@@ -20,9 +20,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var itemBTimeUsedLabel: UILabel!
     @IBOutlet weak var itemCTimeUsedLabel: UILabel!
 
-    @IBOutlet weak var itemATimerViewLabel: UILabel!
-    @IBOutlet weak var itemBTimerViewLabel: UILabel!
-    @IBOutlet weak var itemCTimerViewLabel: UILabel!
+    @IBOutlet weak var timerViewLabel: UILabel!
+//    @IBOutlet weak var itemATimerViewLabel: UILabel!
+//    @IBOutlet weak var itemBTimerViewLabel: UILabel!
+//    @IBOutlet weak var itemCTimerViewLabel: UILabel!
     
     @IBOutlet weak var errCodeViewLabel: UILabel!
     
@@ -48,16 +49,18 @@ class ViewController: UIViewController {
         formatter.timeStyle = .MediumStyle
         clockViewLabel.text = "\(formatter.stringFromDate(clock.currentTime))"
     }
-
+/*
+     Compress timer ladel from 3 to 1
+  */
     func updateTimer() {
         seconds += 1
-        switch AppName {
-        case "A": itemATimerViewLabel.text = "\(seconds)"
-        case "B": itemBTimerViewLabel.text = "\(seconds)"
-        case "C": itemCTimerViewLabel.text = "\(seconds)"
-        default:
-            errCodeViewLabel.text = "Bad"
-        }
+        timerViewLabel.text = "\(seconds)"
+//        switch AppName {
+//        case "A": itemATimerViewLabel.text = "\(seconds)"
+//        case "B": itemBTimerViewLabel.text = "\(seconds)"
+//        case "C": itemCTimerViewLabel.text = "\(seconds)"
+//        default:             errCodeViewLabel.text = "Bad"
+//        }
     }
     
     override func viewDidLoad() {
@@ -98,23 +101,32 @@ class ViewController: UIViewController {
     @IBAction func refreshButton(sender: AnyObject) {
         //        timer.invalidate()
         seconds = 0
-        itemATimerViewLabel.text = "\(seconds)"
-        itemBTimerViewLabel.text = "\(seconds)"
-        itemCTimerViewLabel.text = "\(seconds)"
+        timerViewLabel.text = "\(seconds)"
+//        itemATimerViewLabel.text = "\(seconds)"
+//        itemBTimerViewLabel.text = "\(seconds)"
+//        itemCTimerViewLabel.text = "\(seconds)"
         //        timerIsOn = false
     }
+    /*
+     Compress 3 stop buttons to 1
+     Compress 3 timer labels to 1
+     Display time totals of all apps
+     */
     
     @IBAction func stopButton(sender: AnyObject) {
         if timerIsOn == false {
             errCodeViewLabel.text = "Timer is not running"
         }
         if timerIsOn {
-            var totalTimeUsed = itemDict["A"]!
+            var totalTimeUsed = itemDict[AppName]!
+//            var totalTimeUsed = itemDict["A"]!
             //            print(totalTimeUsed)
             totalTimeUsed = totalTimeUsed + seconds
             //            print(totalTimeUsed)
-            itemDict["A"] = totalTimeUsed
+            itemDict[AppName] = totalTimeUsed
+//            itemDict["A"] = totalTimeUsed
             //            print(itemDict["A"])
+            itemATimeUsedLabel.text = "\(totalTimeUsed)"
             itemATimeUsedLabel.text = "\(totalTimeUsed)"
             timer.invalidate()
             timerIsOn = false
@@ -137,7 +149,7 @@ class ViewController: UIViewController {
         }
         if timerIsOn == false {
             AppName = "A"
-            itemATimerViewLabel.text = "0"
+            timerViewLabel.text = "0"
             seconds = 0
             timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
             timerIsOn = true
@@ -150,7 +162,7 @@ class ViewController: UIViewController {
         }
         if timerIsOn == false {
             AppName = "B"
-            itemBTimerViewLabel.text = "0"
+            timerViewLabel.text = "0"
             seconds = 0
             timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
             timerIsOn = true
@@ -163,19 +175,14 @@ class ViewController: UIViewController {
         }
         if timerIsOn == false {
             AppName = "C"
-            itemCTimerViewLabel.text = "0"
+            timerViewLabel.text = "0"
             seconds = 0
             timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
             timerIsOn = true
         }
     }
 
-    /*
- Compress 3 stop buttons to 1
- Compress 3 timer labels to 1
- Display time totals of all apps
- */
- 
+
 /*
     @IBAction func stopAButton(sender: AnyObject) {
         if timerIsOn {
