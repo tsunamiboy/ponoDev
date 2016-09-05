@@ -33,7 +33,7 @@ class ViewController: UIViewController {
     
 //   replace elapsedTime: Int with dict [String(appl): Int(timeUsed)]
     var itemDict: [String: Int ] = [:]
-    var AppName = "none"
+    var appName = "none"
     var elapsedTime = 0
     
     var seconds = 0
@@ -55,7 +55,7 @@ class ViewController: UIViewController {
     func updateTimer() {
         seconds += 1
         timerViewLabel.text = "\(seconds)"
-//        switch AppName {
+//        switch appName {
 //        case "A": itemATimerViewLabel.text = "\(seconds)"
 //        case "B": itemBTimerViewLabel.text = "\(seconds)"
 //        case "C": itemCTimerViewLabel.text = "\(seconds)"
@@ -118,15 +118,22 @@ class ViewController: UIViewController {
             errCodeViewLabel.text = "Timer is not running"
         }
         if timerIsOn {
-            var totalTimeUsed = itemDict[AppName]!
+            var totalTimeUsed = itemDict[appName]!
 //            var totalTimeUsed = itemDict["A"]!
             //            print(totalTimeUsed)
             totalTimeUsed = totalTimeUsed + seconds
             //            print(totalTimeUsed)
-            itemDict[AppName] = totalTimeUsed
+            itemDict[appName] = totalTimeUsed
 //            itemDict["A"] = totalTimeUsed
             //            print(itemDict["A"])
-            itemATimeUsedLabel.text = "\(totalTimeUsed)"
+            switch appName {
+            case "A": itemATimeUsedLabel.text = "\(totalTimeUsed)"
+            case "B": itemBTimeUsedLabel.text = "\(totalTimeUsed)"
+            case "C": itemCTimeUsedLabel.text = "\(totalTimeUsed)"
+            default:
+                errCodeViewLabel.text = "appName \(appName) Total Time did not resolve"
+            }
+            
             itemATimeUsedLabel.text = "\(totalTimeUsed)"
             timer.invalidate()
             timerIsOn = false
@@ -148,7 +155,7 @@ class ViewController: UIViewController {
             loadDictItem("A")
         }
         if timerIsOn == false {
-            AppName = "A"
+            appName = "A"
             timerViewLabel.text = "0"
             seconds = 0
             timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
@@ -161,7 +168,7 @@ class ViewController: UIViewController {
             loadDictItem("B")
         }
         if timerIsOn == false {
-            AppName = "B"
+            appName = "B"
             timerViewLabel.text = "0"
             seconds = 0
             timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
@@ -174,7 +181,7 @@ class ViewController: UIViewController {
             loadDictItem("C")
         }
         if timerIsOn == false {
-            AppName = "C"
+            appName = "C"
             timerViewLabel.text = "0"
             seconds = 0
             timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
