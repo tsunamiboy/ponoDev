@@ -120,12 +120,19 @@ class ViewController: UIViewController {
         if timerIsOn {
             var totalTimeUsed = itemDict[appName]!
 //            var totalTimeUsed = itemDict["A"]!
-            //            print(totalTimeUsed)
+                        print("appName: ")
+                        print(appName)
+                        print( " Total= ")
+                        print(itemDict[appName]!)
             totalTimeUsed = totalTimeUsed + seconds
-            //            print(totalTimeUsed)
+                        print("total + timer: ")
+                        print(totalTimeUsed)
             itemDict[appName] = totalTimeUsed
 //            itemDict["A"] = totalTimeUsed
-            //            print(itemDict["A"])
+                        print(appName)
+                        print( " New Total= ")
+                        print(itemDict[appName]!)
+
             switch appName {
             case "A": itemATimeUsedLabel.text = "\(totalTimeUsed)"
             case "B": itemBTimeUsedLabel.text = "\(totalTimeUsed)"
@@ -134,7 +141,7 @@ class ViewController: UIViewController {
                 errCodeViewLabel.text = "appName \(appName) Total Time did not resolve"
             }
             
-            itemATimeUsedLabel.text = "\(totalTimeUsed)"
+//            itemATimeUsedLabel.text = "\(totalTimeUsed)"
             timer.invalidate()
             timerIsOn = false
         }
