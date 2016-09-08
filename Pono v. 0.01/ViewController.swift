@@ -66,8 +66,9 @@ class ViewController: UIViewController {
         let formatter = NSDateFormatter()
         formatter.timeStyle = .MediumStyle
         clockViewLabel.text = "\(formatter.stringFromDate(clock.currentTime))"
+//  this loop displays total times used. Note that it does so continuously
         for (applic, appTime) in itemDict {
-            print("\(applic): \(appTime)")
+//            print("\(applic): \(appTime)")
             switch applic {
             case "A": itemATimeUsedLabel.text = String(appTime)
             case "B": itemBTimeUsedLabel.text = String(appTime)
