@@ -37,11 +37,18 @@ class ViewController: UIViewController {
     @IBOutlet weak var itemATimeUsedLabel: UILabel!
     @IBOutlet weak var itemBTimeUsedLabel: UILabel!
     @IBOutlet weak var itemCTimeUsedLabel: UILabel!
+    @IBOutlet weak var itemDTimeUsedLabel: UILabel!
+    @IBOutlet weak var itemETimeUsedLabel: UILabel!
+    @IBOutlet weak var itemFTimeUsedLabel: UILabel!
+    @IBOutlet weak var itemGTimeUsedLabel: UILabel!
+    @IBOutlet weak var itemHTimeUsedLabel: UILabel!
+    @IBOutlet weak var itemITimeUsedLabel: UILabel!
+    @IBOutlet weak var itemJTimeUsedLabel: UILabel!
+    @IBOutlet weak var itemKTimeUsedLabel: UILabel!
+    @IBOutlet weak var itemLTimeUsedLabel: UILabel!
+
 
     @IBOutlet weak var timerViewLabel: UILabel!
-//    @IBOutlet weak var itemATimerViewLabel: UILabel!
-//    @IBOutlet weak var itemBTimerViewLabel: UILabel!
-//    @IBOutlet weak var itemCTimerViewLabel: UILabel!
     
     @IBOutlet weak var errCodeViewLabel: UILabel!
     
@@ -49,7 +56,6 @@ class ViewController: UIViewController {
     
     var clockTimer: NSTimer?
     
-//   replace elapsedTime: Int with dict [String(appl): Int(timeUsed)]
     var itemDict: [String: Int ] = [:]
     var appName = "none"
     var elapsedTime = 0
@@ -73,6 +79,9 @@ class ViewController: UIViewController {
             case "A": itemATimeUsedLabel.text = String(appTime)
             case "B": itemBTimeUsedLabel.text = String(appTime)
             case "C": itemCTimeUsedLabel.text = String(appTime)
+            case "D": itemDTimeUsedLabel.text = String(appTime)
+            case "E": itemETimeUsedLabel.text = String(appTime)
+            case "F": itemFTimeUsedLabel.text = String(appTime)
             default:
                 errCodeViewLabel.text = "appName \(applic) Total Time did not resolve"
             }
@@ -226,6 +235,44 @@ class ViewController: UIViewController {
         }
         if timerIsOn == false {
             appName = "C"
+            timerViewLabel.text = "0"
+            seconds = 0
+            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
+            timerIsOn = true
+        }
+    }
+    @IBAction func itemDStartButton(sender: AnyObject) {
+        if itemDict["D"] == nil {
+            loadDictItem("D")
+        }
+        if timerIsOn == false {
+            appName = "D"
+            timerViewLabel.text = "0"
+            seconds = 0
+            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
+            timerIsOn = true
+        }
+    }
+    
+    @IBAction func itemEStartButton(sender: AnyObject) {
+        if itemDict["E"] == nil {
+            loadDictItem("E")
+        }
+        if timerIsOn == false {
+            appName = "E"
+            timerViewLabel.text = "0"
+            seconds = 0
+            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
+            timerIsOn = true
+        }
+    }
+    
+    @IBAction func itemFStartButton(sender: AnyObject) {
+        if itemDict["F"] == nil {
+            loadDictItem("F")
+        }
+        if timerIsOn == false {
+            appName = "F"
             timerViewLabel.text = "0"
             seconds = 0
             timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)

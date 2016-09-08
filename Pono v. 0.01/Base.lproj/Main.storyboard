@@ -106,7 +106,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="itemAStartButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Nrd-qT-cfn"/>
+                                    <action selector="itemDStartButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xP2-6V-Iz2"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c6M-1z-YSZ">
@@ -117,7 +117,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="itemBStartButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="gen-mc-G6I"/>
+                                    <action selector="itemEStartButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SKy-Ew-SRZ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0XZ-FV-4kN">
@@ -128,7 +128,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="itemCStartButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Bh3-lR-rVd"/>
+                                    <action selector="itemFStartButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="P3E-eR-uEs"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Tzc-Lh-7AR">
@@ -310,9 +310,19 @@
                     </view>
                     <connections>
                         <outlet property="clockViewLabel" destination="Z1c-d1-zgq" id="KQ5-DP-MgP"/>
+                        <outlet property="errCodeViewLabel" destination="J7Y-VE-qOB" id="R4R-zd-BmN"/>
                         <outlet property="itemATimeUsedLabel" destination="aI9-nI-pof" id="Tls-rN-PPe"/>
                         <outlet property="itemBTimeUsedLabel" destination="crp-Ei-yzO" id="lX7-7a-qAB"/>
                         <outlet property="itemCTimeUsedLabel" destination="Tzc-Lh-7AR" id="xdo-ES-D6l"/>
+                        <outlet property="itemDTimeUsedLabel" destination="ZZa-0o-25R" id="Vrf-K6-XEa"/>
+                        <outlet property="itemETimeUsedLabel" destination="MES-uG-Rth" id="hWC-6h-2zh"/>
+                        <outlet property="itemFTimeUsedLabel" destination="6zd-zD-kQA" id="QSM-5s-6Zu"/>
+                        <outlet property="itemGTimeUsedLabel" destination="316-hx-J2C" id="R5q-CC-Qui"/>
+                        <outlet property="itemHTimeUsedLabel" destination="G1Q-oD-MbV" id="Zwo-0d-cBq"/>
+                        <outlet property="itemITimeUsedLabel" destination="Ia2-ou-3N6" id="wRB-xy-3e2"/>
+                        <outlet property="itemJTimeUsedLabel" destination="rOY-uH-pJq" id="Fti-CG-oRS"/>
+                        <outlet property="itemKTimeUsedLabel" destination="rRJ-aD-Ah3" id="8Lf-vj-vWX"/>
+                        <outlet property="itemLTimeUsedLabel" destination="k7Q-rq-rf5" id="g7m-Bs-Hfe"/>
                         <outlet property="timerViewLabel" destination="2VU-qZ-Vlt" id="SDR-5u-4Yh"/>
                     </connections>
                 </viewController>
