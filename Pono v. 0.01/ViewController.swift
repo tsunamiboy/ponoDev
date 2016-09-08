@@ -6,6 +6,24 @@
 //  Copyright © 2016 Sea Turtle Dreams. All rights reserved.
 //
 
+/*
+ TO-DO
+ DONE Compress 3 stop buttons to 1
+ DONE Compress 3 timer labels to 1
+ DONE Display time totals of all apps
+ DONE Change switch into For..In loop in upDateClock for (applic, appTime) in itemDict
+        in updateClock, allow for variable number of cases
+        Enable selection of the relevant table entry is selected within one function
+        Enable selection of appName value from A Dictionary
+        Enable radio button selection
+        Enable creation of the Dictionary key by input from text
+        Use random generation of value
+        Enable creation of the Dictionary value by drag and Drop of objects
+        Enable collection of the app... by detecting object id
+
+ */
+
+
 import UIKit
 
 class ViewController: UIViewController {
@@ -48,9 +66,19 @@ class ViewController: UIViewController {
         let formatter = NSDateFormatter()
         formatter.timeStyle = .MediumStyle
         clockViewLabel.text = "\(formatter.stringFromDate(clock.currentTime))"
+        for (applic, appTime) in itemDict {
+            print("\(applic): \(appTime)")
+            switch applic {
+            case "A": itemATimeUsedLabel.text = String(appTime)
+            case "B": itemBTimeUsedLabel.text = String(appTime)
+            case "C": itemCTimeUsedLabel.text = String(appTime)
+            default:
+                errCodeViewLabel.text = "appName \(applic) Total Time did not resolve"
+            }
+        }
     }
 /*
-     Compress timer ladel from 3 to 1
+     Compress timer label from 3 to 1
   */
     func updateTimer() {
         seconds += 1
@@ -69,7 +97,7 @@ class ViewController: UIViewController {
   
         clockTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateClock)), userInfo: nil, repeats: true)
         
-        /*
+/*
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.updateClock), name: UIApplicationWillEnterForegroundNotification, object: nil)
             }
 */
@@ -95,7 +123,7 @@ class ViewController: UIViewController {
     }
 
 /*
- compress 3 timer-refresh labels to 1
+     compress 3 timer-refresh labels to 1
 */
     
     @IBAction func refreshButton(sender: AnyObject) {
@@ -108,8 +136,8 @@ class ViewController: UIViewController {
         //        timerIsOn = false
     }
     /*
-     Compress 3 stop buttons to 1
-     Compress 3 timer labels to 1
+     DONE Compress 3 stop buttons to 1
+     DONE Compress 3 timer labels to 1
      Display time totals of all apps
      */
     
@@ -133,6 +161,13 @@ class ViewController: UIViewController {
                         print( " New Total= ")
                         print(itemDict[appName]!)
 
+/*   
+            
+            Change switch into For..In loop, isolate from stop
+            for (applic, appTime) in itemDict {
+                print("\(applic): \(appTime)")
+            }
+            
             switch appName {
             case "A": itemATimeUsedLabel.text = "\(totalTimeUsed)"
             case "B": itemBTimeUsedLabel.text = "\(totalTimeUsed)"
@@ -140,7 +175,7 @@ class ViewController: UIViewController {
             default:
                 errCodeViewLabel.text = "appName \(appName) Total Time did not resolve"
             }
-            
+*/
 //            itemATimeUsedLabel.text = "\(totalTimeUsed)"
             timer.invalidate()
             timerIsOn = false
@@ -148,6 +183,7 @@ class ViewController: UIViewController {
     }
     
  /*
+     
    Compress start functions so that the relevant table entry is selected within one function
      Enable selection of appName value from A Dictionary
      Enable radio button selection
@@ -195,51 +231,4 @@ class ViewController: UIViewController {
             timerIsOn = true
         }
     }
-
-
-/*
-    @IBAction func stopAButton(sender: AnyObject) {
-        if timerIsOn {
-        var totalTimeUsed = itemDict["A"]!
-//            print(totalTimeUsed)
-        totalTimeUsed = totalTimeUsed + seconds
-//            print(totalTimeUsed)
-        itemDict["A"] = totalTimeUsed
-//            print(itemDict["A"])
-        itemATimeUsedLabel.text = "\(totalTimeUsed)"
-        timer.invalidate()
-        timerIsOn = false
-        }
-    }
-    
-    @IBAction func stopBButton(sender: AnyObject) {
-        if timerIsOn {
-            var totalTimeUsed = itemDict["B"]!
-            //            print(totalTimeUsed)
-            totalTimeUsed = totalTimeUsed + seconds
-            //            print(totalTimeUsed)
-            itemDict["B"] = totalTimeUsed
-            //            print(itemDict["B"])
-            itemBTimeUsedLabel.text = "\(totalTimeUsed)"
-            timer.invalidate()
-            timerIsOn = false
-        }
-    }
-    
-    @IBAction func stopCButton(sender: AnyObject) {
-        if timerIsOn {
-            var totalTimeUsed = itemDict["C"]!
-            //            print(totalTimeUsed)
-            totalTimeUsed = totalTimeUsed + seconds
-            //            print(totalTimeUsed)
-            itemDict["C"] = totalTimeUsed
-            //            print(itemDict["C"])
-            itemCTimeUsedLabel.text = "\(totalTimeUsed)"
-            timer.invalidate()
-            timerIsOn = false
-        }
-    }
- */
-
 }
-
