@@ -13,6 +13,7 @@
  DONE Display time totals of all apps
  DONE Change switch into For..In loop in upDateClock for (applic, appTime) in itemDict
         in updateClock, allow for variable number of cases
+            experiment: replace IBOutlets with subviews
         Enable selection of the relevant table entry is selected within one function
         Enable selection of appName value from A Dictionary
         Enable radio button selection
@@ -34,18 +35,18 @@ class ViewController: UIViewController {
     @IBOutlet weak var clockViewLabel: UILabel!
     
     
-    @IBOutlet weak var itemATimeUsedLabel: UILabel!
-    @IBOutlet weak var itemBTimeUsedLabel: UILabel!
-    @IBOutlet weak var itemCTimeUsedLabel: UILabel!
-    @IBOutlet weak var itemDTimeUsedLabel: UILabel!
-    @IBOutlet weak var itemETimeUsedLabel: UILabel!
-    @IBOutlet weak var itemFTimeUsedLabel: UILabel!
-    @IBOutlet weak var itemGTimeUsedLabel: UILabel!
-    @IBOutlet weak var itemHTimeUsedLabel: UILabel!
-    @IBOutlet weak var itemITimeUsedLabel: UILabel!
-    @IBOutlet weak var itemJTimeUsedLabel: UILabel!
-    @IBOutlet weak var itemKTimeUsedLabel: UILabel!
-    @IBOutlet weak var itemLTimeUsedLabel: UILabel!
+    @IBOutlet weak var label01: UILabel!
+    @IBOutlet weak var label02: UILabel!
+    @IBOutlet weak var label03: UILabel!
+    @IBOutlet weak var label04: UILabel!
+    @IBOutlet weak var label05: UILabel!
+    @IBOutlet weak var label06: UILabel!
+    @IBOutlet weak var label07: UILabel!
+    @IBOutlet weak var label08: UILabel!
+    @IBOutlet weak var label09: UILabel!
+    @IBOutlet weak var label10: UILabel!
+    @IBOutlet weak var label11: UILabel!
+    @IBOutlet weak var label12: UILabel!
 
 
     @IBOutlet weak var timerViewLabel: UILabel!
@@ -59,6 +60,7 @@ class ViewController: UIViewController {
     var itemDict: [String: Int ] = [:]
     var appName = "none"
     var elapsedTime = 0
+
     
     var seconds = 0
     var timer = NSTimer()
@@ -72,33 +74,35 @@ class ViewController: UIViewController {
         let formatter = NSDateFormatter()
         formatter.timeStyle = .MediumStyle
         clockViewLabel.text = "\(formatter.stringFromDate(clock.currentTime))"
-//  this loop displays total times used. Note that it does so continuously
-        for (applic, appTime) in itemDict {
-//            print("\(applic): \(appTime)")
-            switch applic {
-            case "A": itemATimeUsedLabel.text = String(appTime)
-            case "B": itemBTimeUsedLabel.text = String(appTime)
-            case "C": itemCTimeUsedLabel.text = String(appTime)
-            case "D": itemDTimeUsedLabel.text = String(appTime)
-            case "E": itemETimeUsedLabel.text = String(appTime)
-            case "F": itemFTimeUsedLabel.text = String(appTime)
-            default:
-                errCodeViewLabel.text = "appName \(applic) Total Time did not resolve"
-            }
+//  this loop continuously displays total times used.
+                if itemDict.values.isEmpty {
+                }
+                    else {
+                    var labelCnt = 0
+                    let sortedKeys = (itemDict as NSDictionary).keysSortedByValueUsingComparator
+                        { ($1 as! NSNumber).compare($0 as! NSNumber) }
+//                   let sortedKeys:Array = (itemDict as NSDictionary).keysSortedByValueUsingSelector(#selector(NSNumber.compare(_:)))
+                    for applic in sortedKeys {
+                        let appTime = itemDict["\(applic)"]
+                        print("\(applic): \(appTime)")
+                        switch labelCnt {
+                        case 0 : label01.text = "\(applic)"; label02.text = "\(appTime!)"
+                        case 1 : label03.text = "\(applic)"; label04.text = "\(appTime!)"
+                        case 2 : label05.text = "\(applic)"; label06.text = "\(appTime!)"
+                        case 3 : label07.text = "\(applic)"; label08.text = "\(appTime!)"
+                        case 4 : label09.text = "\(applic)"; label10.text = "\(appTime!)"
+                        case 5 : label11.text = "\(applic)"; label12.text = "\(appTime!)"
+                        default:
+                        errCodeViewLabel.text = "appName= \(applic) Time= \(appTime)"
+                        }
+                    labelCnt += 1
+                    }
+                    }
         }
-    }
-/*
-     Compress timer label from 3 to 1
-  */
+
     func updateTimer() {
         seconds += 1
         timerViewLabel.text = "\(seconds)"
-//        switch appName {
-//        case "A": itemATimerViewLabel.text = "\(seconds)"
-//        case "B": itemBTimerViewLabel.text = "\(seconds)"
-//        case "C": itemCTimerViewLabel.text = "\(seconds)"
-//        default:             errCodeViewLabel.text = "Bad"
-//        }
     }
     
     override func viewDidLoad() {
@@ -140,17 +144,8 @@ class ViewController: UIViewController {
         //        timer.invalidate()
         seconds = 0
         timerViewLabel.text = "\(seconds)"
-//        itemATimerViewLabel.text = "\(seconds)"
-//        itemBTimerViewLabel.text = "\(seconds)"
-//        itemCTimerViewLabel.text = "\(seconds)"
-        //        timerIsOn = false
     }
-    /*
-     DONE Compress 3 stop buttons to 1
-     DONE Compress 3 timer labels to 1
-     Display time totals of all apps
-     */
-    
+
     @IBAction func stopButton(sender: AnyObject) {
         if timerIsOn == false {
             errCodeViewLabel.text = "Timer is not running"
@@ -158,50 +153,16 @@ class ViewController: UIViewController {
         if timerIsOn {
             var totalTimeUsed = itemDict[appName]!
 //            var totalTimeUsed = itemDict["A"]!
-                        print("appName: ")
-                        print(appName)
-                        print( " Total= ")
-                        print(itemDict[appName]!)
+                        print("appName: \(appName) Total: \(itemDict[appName]!)")
             totalTimeUsed = totalTimeUsed + seconds
-                        print("total + timer: ")
-                        print(totalTimeUsed)
+                        print("total + timer: \(totalTimeUsed)")
             itemDict[appName] = totalTimeUsed
-//            itemDict["A"] = totalTimeUsed
-                        print(appName)
-                        print( " New Total= ")
-                        print(itemDict[appName]!)
-
-/*   
-            
-            Change switch into For..In loop, isolate from stop
-            for (applic, appTime) in itemDict {
-                print("\(applic): \(appTime)")
-            }
-            
-            switch appName {
-            case "A": itemATimeUsedLabel.text = "\(totalTimeUsed)"
-            case "B": itemBTimeUsedLabel.text = "\(totalTimeUsed)"
-            case "C": itemCTimeUsedLabel.text = "\(totalTimeUsed)"
-            default:
-                errCodeViewLabel.text = "appName \(appName) Total Time did not resolve"
-            }
-*/
-//            itemATimeUsedLabel.text = "\(totalTimeUsed)"
+                        print("appName: \(appName) Total: \(itemDict[appName]!)")
+                        print("\(appName) Timer stopped.")
             timer.invalidate()
             timerIsOn = false
         }
     }
-    
- /*
-     
-   Compress start functions so that the relevant table entry is selected within one function
-     Enable selection of appName value from A Dictionary
-     Enable radio button selection
-     Enable creation of the Dictionary key by input from text
-        Use random generation of value
-     Enable creation of the Dictionary value by drag and Drop of objects
-     Enable collection of the app... by detecting object id
- */
     
     @IBAction func itemAStartButton(sender: AnyObject) {
         if itemDict["A"] == nil {
