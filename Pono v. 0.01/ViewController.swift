@@ -12,7 +12,7 @@
  DONE Compress 3 timer labels to 1
  DONE Display time totals of all apps
  DONE Change switch into For..In loop in upDateClock for (applic, appTime) in itemDict
-        in updateClock, allow for variable number of cases
+ DONE in updateClock, allow for variable number of cases
             experiment: replace IBOutlets with subviews
         Enable selection of the relevant table entry is selected within one function
         Enable selection of appName value from A Dictionary
@@ -55,7 +55,7 @@ class ViewController: UIViewController {
     
 //    var time = NSDate()
     
-    var clockTimer: NSTimer?
+    var clockTimer: Timer?
     
     var itemDict: [String: Int ] = [:]
     var appName = "none"
@@ -63,41 +63,40 @@ class ViewController: UIViewController {
 
     
     var seconds = 0
-    var timer = NSTimer()
+    var timer = Timer()
     var timerIsOn = false
    
-    func loadDictItem(item: String) {
+    func loadDictItem(_ item: String) {
         itemDict[(item)] = 0
     }
     
     func updateClock() {
-        let formatter = NSDateFormatter()
-        formatter.timeStyle = .MediumStyle
-        clockViewLabel.text = "\(formatter.stringFromDate(clock.currentTime))"
+        let formatter = DateFormatter()
+        formatter.timeStyle = .medium
+        clockViewLabel.text = "\(formatter.string(from: clock.currentTime as Date))"
 //  this loop continuously displays total times used.
                 if itemDict.values.isEmpty {
                 }
                     else {
                     var labelCnt = 0
-                    let sortedKeys = (itemDict as NSDictionary).keysSortedByValueUsingComparator
-                        { ($1 as! NSNumber).compare($0 as! NSNumber) }
-//                   let sortedKeys:Array = (itemDict as NSDictionary).keysSortedByValueUsingSelector(#selector(NSNumber.compare(_:)))
-                    for applic in sortedKeys {
-                        let appTime = itemDict["\(applic)"]
-                        print("\(applic): \(appTime)")
-                        switch labelCnt {
-                        case 0 : label01.text = "\(applic)"; label02.text = "\(appTime!)"
-                        case 1 : label03.text = "\(applic)"; label04.text = "\(appTime!)"
-                        case 2 : label05.text = "\(applic)"; label06.text = "\(appTime!)"
-                        case 3 : label07.text = "\(applic)"; label08.text = "\(appTime!)"
-                        case 4 : label09.text = "\(applic)"; label10.text = "\(appTime!)"
-                        case 5 : label11.text = "\(applic)"; label12.text = "\(appTime!)"
-                        default:
-                        errCodeViewLabel.text = "appName= \(applic) Time= \(appTime)"
+                    let sortedKeys: Array = (itemDict as NSDictionary).keysSortedByValue(comparator: { ($1 as! NSNumber ).compare($0 as! NSNumber ) })
+//                    let sortedKeys:Array = (itemDict as NSDictionary).keysSortedByValueUsingSelector(#selector(NSNumber.compare(_:)))
+                        for applic in sortedKeys {
+                            let appTime = itemDict["\(applic)"]
+                            print("\(applic): \(appTime)")
+                            switch labelCnt {
+                                case 0 : label01.text = "\(applic)"; label02.text = "\(appTime!)"
+                                case 1 : label03.text = "\(applic)"; label04.text = "\(appTime!)"
+                                case 2 : label05.text = "\(applic)"; label06.text = "\(appTime!)"
+                                case 3 : label07.text = "\(applic)"; label08.text = "\(appTime!)"
+                                case 4 : label09.text = "\(applic)"; label10.text = "\(appTime!)"
+                                case 5 : label11.text = "\(applic)"; label12.text = "\(appTime!)"
+                                default:
+                                    errCodeViewLabel.text = "appName= \(applic) Time= \(appTime)"
+                                }
+                            labelCnt += 1
+                            }
                         }
-                    labelCnt += 1
-                    }
-                    }
         }
 
     func updateTimer() {
@@ -109,7 +108,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
   
-        clockTimer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateClock)), userInfo: nil, repeats: true)
+        clockTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.updateClock)), userInfo: nil, repeats: true)
         
 /*
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.updateClock), name: UIApplicationWillEnterForegroundNotification, object: nil)
@@ -125,7 +124,7 @@ class ViewController: UIViewController {
     }   
     
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         updateClock()
     }
@@ -140,13 +139,13 @@ class ViewController: UIViewController {
      compress 3 timer-refresh labels to 1
 */
     
-    @IBAction func refreshButton(sender: AnyObject) {
+    @IBAction func refreshButton(_ sender: AnyObject) {
         //        timer.invalidate()
         seconds = 0
         timerViewLabel.text = "\(seconds)"
     }
 
-    @IBAction func stopButton(sender: AnyObject) {
+    @IBAction func stopButton(_ sender: AnyObject) {
         if timerIsOn == false {
             errCodeViewLabel.text = "Timer is not running"
         }
@@ -164,7 +163,7 @@ class ViewController: UIViewController {
         }
     }
     
-    @IBAction func itemAStartButton(sender: AnyObject) {
+    @IBAction func itemAStartButton(_ sender: AnyObject) {
         if itemDict["A"] == nil {
             loadDictItem("A")
         }
@@ -172,12 +171,12 @@ class ViewController: UIViewController {
             appName = "A"
             timerViewLabel.text = "0"
             seconds = 0
-            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
             timerIsOn = true
         }
     }
     
-    @IBAction func itemBStartButton(sender: AnyObject) {
+    @IBAction func itemBStartButton(_ sender: AnyObject) {
         if itemDict["B"] == nil {
             loadDictItem("B")
         }
@@ -185,12 +184,12 @@ class ViewController: UIViewController {
             appName = "B"
             timerViewLabel.text = "0"
             seconds = 0
-            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
             timerIsOn = true
         }
     }
     
-    @IBAction func itemCStartButton(sender: AnyObject) {
+    @IBAction func itemCStartButton(_ sender: AnyObject) {
         if itemDict["C"] == nil {
             loadDictItem("C")
         }
@@ -198,11 +197,11 @@ class ViewController: UIViewController {
             appName = "C"
             timerViewLabel.text = "0"
             seconds = 0
-            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
             timerIsOn = true
         }
     }
-    @IBAction func itemDStartButton(sender: AnyObject) {
+    @IBAction func itemDStartButton(_ sender: AnyObject) {
         if itemDict["D"] == nil {
             loadDictItem("D")
         }
@@ -210,12 +209,12 @@ class ViewController: UIViewController {
             appName = "D"
             timerViewLabel.text = "0"
             seconds = 0
-            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
             timerIsOn = true
         }
     }
     
-    @IBAction func itemEStartButton(sender: AnyObject) {
+    @IBAction func itemEStartButton(_ sender: AnyObject) {
         if itemDict["E"] == nil {
             loadDictItem("E")
         }
@@ -223,12 +222,12 @@ class ViewController: UIViewController {
             appName = "E"
             timerViewLabel.text = "0"
             seconds = 0
-            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
             timerIsOn = true
         }
     }
     
-    @IBAction func itemFStartButton(sender: AnyObject) {
+    @IBAction func itemFStartButton(_ sender: AnyObject) {
         if itemDict["F"] == nil {
             loadDictItem("F")
         }
@@ -236,7 +235,7 @@ class ViewController: UIViewController {
             appName = "F"
             timerViewLabel.text = "0"
             seconds = 0
-            timer = NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
+            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
             timerIsOn = true
         }
     }
