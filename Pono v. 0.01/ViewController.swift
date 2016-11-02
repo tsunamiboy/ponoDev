@@ -14,13 +14,34 @@
  DONE Change switch into For..In loop in upDateClock for (applic, appTime) in itemDict
  DONE in updateClock, allow for variable number of cases
             experiment: replace IBOutlets with subviews
-        Enable selection of the relevant table entry is selected within one function
-        Enable selection of appName value from A Dictionary
-        Enable radio button selection
-        Enable creation of the Dictionary key by input from text
-        Use random generation of value
-        Enable creation of the Dictionary value by drag and Drop of objects
-        Enable collection of the app... by detecting object id
+        multiple buttons, one timer
+        set the tag property of button and do work based on the tag, case
+ 
+ button.tag = 5
+ button.addTarget(self,action:#selector(buttonClicked),
+ forControlEvents:.TouchUpInside)
+ 
+ func buttonClicked(sender:UIButton)
+ {
+ if(sender.tag == 5){
+ 
+ var abc = "argOne" //Do something for tag 5
+ }
+ print("hello")
+ }
+        Starting any app stops timer of another app
+        inactivity causes stop
+        selection of the relevant table entry within one function
+        appName:randomNum ... randomNum:timeUsed ... report by appName->timeUsed
+        selection of appName value from A Dictionary
+        radio button selection
+        creation of the appName Dictionary key...
+            by input from text
+            by drag and Drop of objects
+        identify app...
+            detect object id
+            by registration
+            by alias
 
  */
 
@@ -33,7 +54,6 @@ class ViewController: UIViewController {
     let clock = Clock()
     
     @IBOutlet weak var clockViewLabel: UILabel!
-    
     
     @IBOutlet weak var label01: UILabel!
     @IBOutlet weak var label02: UILabel!
@@ -59,6 +79,7 @@ class ViewController: UIViewController {
     
     var itemDict: [String: Int ] = [:]
     var appName = "none"
+    var appRunning = "none"
     var elapsedTime = 0
 
     
@@ -83,7 +104,7 @@ class ViewController: UIViewController {
 //                    let sortedKeys:Array = (itemDict as NSDictionary).keysSortedByValueUsingSelector(#selector(NSNumber.compare(_:)))
                         for applic in sortedKeys {
                             let appTime = itemDict["\(applic)"]
-                            print("\(applic): \(appTime)")
+                            print("upDateClock => \(applic): \(appTime)")
                             switch labelCnt {
                                 case 0 : label01.text = "\(applic)"; label02.text = "\(appTime!)"
                                 case 1 : label03.text = "\(applic)"; label04.text = "\(appTime!)"
@@ -152,17 +173,91 @@ class ViewController: UIViewController {
         if timerIsOn {
             var totalTimeUsed = itemDict[appName]!
 //            var totalTimeUsed = itemDict["A"]!
-                        print("appName: \(appName) Total: \(itemDict[appName]!)")
+            print("stopButton => appName: \(appName) Total: \(itemDict[appName]!)")
             totalTimeUsed = totalTimeUsed + seconds
-                        print("total + timer: \(totalTimeUsed)")
+            print("stopButton => total + timer: \(totalTimeUsed)")
             itemDict[appName] = totalTimeUsed
-                        print("appName: \(appName) Total: \(itemDict[appName]!)")
-                        print("\(appName) Timer stopped.")
+            print("stopButton => appName: \(appName) Total: \(itemDict[appName]!)")
+            print("stopButton => \(appName) Timer stopped.")
             timer.invalidate()
+            seconds = 0
+            timerViewLabel.text = "\(seconds)"
+            appName = "none"
+            appRunning = "none"
             timerIsOn = false
         }
     }
     
+    func stopFunc() {
+        if timerIsOn {
+            var totalTimeUsed = itemDict[appName]!
+            print("stopFunc => appName: \(appName) Total: \(itemDict[appName]!)")
+            totalTimeUsed = totalTimeUsed + seconds
+            print("stopFunc => total + timer: \(totalTimeUsed)")
+            itemDict[appName] = totalTimeUsed
+            print("stopFunc => appName: \(appName) Total: \(itemDict[appName]!)")
+            print("stopFunc => \(appName) Timer stopped.")
+            itemDict[appName] = totalTimeUsed
+            timer.invalidate()
+            seconds = 0
+            timerViewLabel.text = "\(seconds)"
+            appName = "none"
+            appRunning = "none"
+            timerIsOn = false
+        }
+    }
+    
+    func startTimer () {
+        
+        print("startTimer => Begin ...")
+        print("      timerIsOn = \(timerIsOn)")
+        print("      appName = \(appName)")
+        print("     appRunning = \(appRunning)")
+        if timerIsOn && appName != appRunning {
+            print("... calling stopFunc ...")
+            stopFunc()
+        }
+        if itemDict[appName] == nil {
+            print("startTimer => ... App named \(appName) Not in Dict, calling loadDict ...")
+            loadDictItem(appName)
+        }
+        timerViewLabel.text = "0"
+        seconds = 0
+        timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
+        appRunning = appName
+        timerIsOn = true
+        print("startTimer => End ...")
+        print("   timerIsOn = \(timerIsOn)")
+        print("   appName = \(appName)")
+        print("  appRunning = \(appRunning)")
+    }
+    
+    
+/*
+     +  Starting any app stops timer of another app
+            if label reps current app, do nothing or call
+            (create) stop func
+            start timer for new app
+     +  Enable selection of the relevant table entry within one function
+     +  Enable appName:randomNum ... randomNum:timeUsed ... report by appName->timeUsed
+     collect appName from object selected
+     determine if appName is in list of tracked apps
+     and if not, load it for tracking
+ */
+    
+
+    @IBAction func itemAStartButton(_ sender: AnyObject) {
+        if appName != "A" {
+            if appName != "none" {
+            stopFunc()
+            }
+            appName = "A"
+//        appName = "\(appALabel.text)"
+            startTimer()
+        }
+    }
+
+/*
     @IBAction func itemAStartButton(_ sender: AnyObject) {
         if itemDict["A"] == nil {
             loadDictItem("A")
@@ -175,7 +270,8 @@ class ViewController: UIViewController {
             timerIsOn = true
         }
     }
-    
+*/
+ 
     @IBAction func itemBStartButton(_ sender: AnyObject) {
         if itemDict["B"] == nil {
             loadDictItem("B")
