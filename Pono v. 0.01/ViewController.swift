@@ -14,23 +14,10 @@
  DONE Change switch into For..In loop in upDateClock for (applic, appTime) in itemDict
  DONE in updateClock, allow for variable number of cases
             experiment: replace IBOutlets with subviews
-        multiple buttons, one timer
-        set the tag property of button and do work based on the tag, case
- 
- button.tag = 5
- button.addTarget(self,action:#selector(buttonClicked),
- forControlEvents:.TouchUpInside)
- 
- func buttonClicked(sender:UIButton)
- {
- if(sender.tag == 5){
- 
- var abc = "argOne" //Do something for tag 5
- }
- print("hello")
- }
-        Starting any app stops timer of another app
-        inactivity causes stop
+ DONE multiple buttons, one timer
+ DONE Starting any app stops timer of another app
+        inactivity causes stop; 
+            different classes of app hae different inactivity threshholds
         selection of the relevant table entry within one function
         appName:randomNum ... randomNum:timeUsed ... report by appName->timeUsed
         selection of appName value from A Dictionary
@@ -233,10 +220,7 @@ class ViewController: UIViewController {
     
     
 /*
-     +  Starting any app stops timer of another app
-            if label reps current app, do nothing or call
-            (create) stop func
-            start timer for new app
+     ++  Starting any app stops timer of another app
      +  Enable selection of the relevant table entry within one function
      +  Enable appName:randomNum ... randomNum:timeUsed ... report by appName->timeUsed
      collect appName from object selected
@@ -247,142 +231,52 @@ class ViewController: UIViewController {
 
     @IBAction func itemAStartButton(_ sender: AnyObject) {
         if appName != "A" {
-//            if appName != "none" {
             stopFunc()
-//            }
             appName = "A"
-//        appName = "\(appALabel.text)"
             startTimer()
         }
     }
 
-/*
-    @IBAction func itemAStartButton(_ sender: AnyObject) {
-        if itemDict["A"] == nil {
-            loadDictItem("A")
-        }
-        if timerIsOn == false {
-            appName = "A"
-            timerViewLabel.text = "0"
-            seconds = 0
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
-            timerIsOn = true
-        }
-    }
-*/
  
     @IBAction func itemBStartButton(_ sender: AnyObject) {
         if appName != "B" {
-//            if appName != "none" {
                 stopFunc()
-//            }
             appName = "B"
-            //        appName = "\(appALabel.text)"
             startTimer()
         }
     }
-/*        if itemDict["B"] == nil {
-            loadDictItem("B")
-        }
-        if timerIsOn == false {
-            appName = "B"
-            timerViewLabel.text = "0"
-            seconds = 0
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
-            timerIsOn = true
-        }
-    }
-*/
+
     @IBAction func itemCStartButton(_ sender: AnyObject) {
         if appName != "C" {
-//            if appName != "none" {
                 stopFunc()
-//            }
             appName = "C"
-            //        appName = "\(appALabel.text)"
-            startTimer()
-        }
-    }
-/*        if itemDict["C"] == nil {
-            loadDictItem("C")
-        }
-        if timerIsOn == false {
-            appName = "C"
-            timerViewLabel.text = "0"
-            seconds = 0
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
-            timerIsOn = true
-        }
-    }
-*/
-        
-    @IBAction func itemDStartButton(_ sender: AnyObject) {
-        if appName != "D" {
-//            if appName != "none" {
-                stopFunc()
-//            }
-            appName = "D"
-        //        appName = "\(appALabel.text)"
             startTimer()
         }
     }
     
-/*    if itemDict["D"] == nil {
-            loadDictItem("D")
-        }
-        if timerIsOn == false {
-            appName = "D"
-            timerViewLabel.text = "0"
-            seconds = 0
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
-            timerIsOn = true
-        }
-    }
-*/
- 
-    @IBAction func itemEStartButton(_ sender: AnyObject) {
-        if appName != "E" {
-//            if appName != "none" {
+    @IBAction func itemDStartButton(_ sender: AnyObject) {
+        if appName != "D" {
                 stopFunc()
-//            }
-            appName = "E"
-            //        appName = "\(appALabel.text)"
+            appName = "D"
             startTimer()
         }
     }
-/*        if itemDict["E"] == nil {
-            loadDictItem("E")
-        }
-        if timerIsOn == false {
+    
+    
+    @IBAction func itemEStartButton(_ sender: AnyObject) {
+        if appName != "E" {
+                stopFunc()
             appName = "E"
-            timerViewLabel.text = "0"
-            seconds = 0
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
-            timerIsOn = true
+             startTimer()
         }
     }
-*/
+
  
     @IBAction func itemFStartButton(_ sender: AnyObject) {
         if appName != "F" {
-//            if appName != "none" {
                 stopFunc()
-//            }
             appName = "F"
-            //        appName = "\(appALabel.text)"
             startTimer()
         }
     }
-/*        if itemDict["F"] == nil {
-            loadDictItem("F")
-        }
-        if timerIsOn == false {
-            appName = "F"
-            timerViewLabel.text = "0"
-            seconds = 0
-            timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
-            timerIsOn = true
-        }
-    }
- */
 }
