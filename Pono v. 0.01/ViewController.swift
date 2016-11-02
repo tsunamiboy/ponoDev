@@ -208,9 +208,8 @@ class ViewController: UIViewController {
     }
     
     func startTimer () {
-        
-        print("startTimer => Begin ...")
-        print("      timerIsOn = \(timerIsOn)")
+        print("startTimer=> Begin ...")
+        print("    timerIsOn = \(timerIsOn)")
         print("      appName = \(appName)")
         print("     appRunning = \(appRunning)")
         if timerIsOn && appName != appRunning {
@@ -248,9 +247,9 @@ class ViewController: UIViewController {
 
     @IBAction func itemAStartButton(_ sender: AnyObject) {
         if appName != "A" {
-            if appName != "none" {
+//            if appName != "none" {
             stopFunc()
-            }
+//            }
             appName = "A"
 //        appName = "\(appALabel.text)"
             startTimer()
@@ -273,7 +272,16 @@ class ViewController: UIViewController {
 */
  
     @IBAction func itemBStartButton(_ sender: AnyObject) {
-        if itemDict["B"] == nil {
+        if appName != "B" {
+//            if appName != "none" {
+                stopFunc()
+//            }
+            appName = "B"
+            //        appName = "\(appALabel.text)"
+            startTimer()
+        }
+    }
+/*        if itemDict["B"] == nil {
             loadDictItem("B")
         }
         if timerIsOn == false {
@@ -284,9 +292,18 @@ class ViewController: UIViewController {
             timerIsOn = true
         }
     }
-    
+*/
     @IBAction func itemCStartButton(_ sender: AnyObject) {
-        if itemDict["C"] == nil {
+        if appName != "C" {
+//            if appName != "none" {
+                stopFunc()
+//            }
+            appName = "C"
+            //        appName = "\(appALabel.text)"
+            startTimer()
+        }
+    }
+/*        if itemDict["C"] == nil {
             loadDictItem("C")
         }
         if timerIsOn == false {
@@ -297,8 +314,20 @@ class ViewController: UIViewController {
             timerIsOn = true
         }
     }
+*/
+        
     @IBAction func itemDStartButton(_ sender: AnyObject) {
-        if itemDict["D"] == nil {
+        if appName != "D" {
+//            if appName != "none" {
+                stopFunc()
+//            }
+            appName = "D"
+        //        appName = "\(appALabel.text)"
+            startTimer()
+        }
+    }
+    
+/*    if itemDict["D"] == nil {
             loadDictItem("D")
         }
         if timerIsOn == false {
@@ -309,9 +338,19 @@ class ViewController: UIViewController {
             timerIsOn = true
         }
     }
-    
+*/
+ 
     @IBAction func itemEStartButton(_ sender: AnyObject) {
-        if itemDict["E"] == nil {
+        if appName != "E" {
+//            if appName != "none" {
+                stopFunc()
+//            }
+            appName = "E"
+            //        appName = "\(appALabel.text)"
+            startTimer()
+        }
+    }
+/*        if itemDict["E"] == nil {
             loadDictItem("E")
         }
         if timerIsOn == false {
@@ -322,9 +361,19 @@ class ViewController: UIViewController {
             timerIsOn = true
         }
     }
-    
+*/
+ 
     @IBAction func itemFStartButton(_ sender: AnyObject) {
-        if itemDict["F"] == nil {
+        if appName != "F" {
+//            if appName != "none" {
+                stopFunc()
+//            }
+            appName = "F"
+            //        appName = "\(appALabel.text)"
+            startTimer()
+        }
+    }
+/*        if itemDict["F"] == nil {
             loadDictItem("F")
         }
         if timerIsOn == false {
@@ -335,4 +384,5 @@ class ViewController: UIViewController {
             timerIsOn = true
         }
     }
+ */
 }
