@@ -117,13 +117,12 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
   
         clockTimer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.updateClock)), userInfo: nil, repeats: true)
+    }
         
 /*
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(ViewController.updateClock), name: UIApplicationWillEnterForegroundNotification, object: nil)
             }
 */
-
-    }
 
     deinit {
         //        NSNotificationCenter.defaultCenter().removeObserver(self)
@@ -143,9 +142,6 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-/*
-     compress 3 timer-refresh labels to 1
-*/
     
     @IBAction func refreshButton(_ sender: AnyObject) {
         //        timer.invalidate()
@@ -153,13 +149,13 @@ class ViewController: UIViewController {
         timerViewLabel.text = "\(seconds)"
     }
 
+    
     @IBAction func stopButton(_ sender: AnyObject) {
         if timerIsOn == false {
             errCodeViewLabel.text = "Timer is not running"
         }
         if timerIsOn {
             var totalTimeUsed = itemDict[appName]!
-//            var totalTimeUsed = itemDict["A"]!
             print("stopButton => appName: \(appName) Total: \(itemDict[appName]!)")
             totalTimeUsed = totalTimeUsed + seconds
             print("stopButton => total + timer: \(totalTimeUsed)")
@@ -200,7 +196,7 @@ class ViewController: UIViewController {
         print("      appName = \(appName)")
         print("     appRunning = \(appRunning)")
         if timerIsOn && appName != appRunning {
-            print("... calling stopFunc ...")
+            print("startTimer=> timerIsOn but \(appName) is not \(appRunning) ..!. calling stopFunc ...")
             stopFunc()
         }
         if itemDict[appName] == nil {
