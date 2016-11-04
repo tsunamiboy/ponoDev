@@ -11,7 +11,7 @@
  DONE Compress 3 stop buttons to 1
  DONE Compress 3 timer labels to 1
  DONE Display time totals of all apps
- DONE Change switch into For..In loop in upDateClock for (applic, appTime) in itemDict
+ DONE Change switch into For..In loop in upDateClock for (applic, appTime) in appDict
  DONE in updateClock, allow for variable number of cases
             experiment: replace IBOutlets with subviews
  DONE multiple buttons, one timer
@@ -64,18 +64,17 @@ class ViewController: UIViewController {
     
     var clockTimer: Timer?
     
-    var itemDict: [String: Int ] = [:]
+    var appDict: [String: Int ] = [:]
     var appName = "none"
     var appRunning = "none"
-    var elapsedTime = 0
 
-    
-    var seconds = 0
+    var appInactivityLimit = 90
+    var appSeconds = 0
     var timer = Timer()
     var timerIsOn = false
    
     func loadDictItem(_ item: String) {
-        itemDict[(item)] = 0
+        appDict[(item)] = 0
     }
     
     func updateClock() {
@@ -83,14 +82,14 @@ class ViewController: UIViewController {
         formatter.timeStyle = .medium
         clockViewLabel.text = "\(formatter.string(from: clock.currentTime as Date))"
 //  this loop continuously displays total times used.
-                if itemDict.values.isEmpty {
+                if appDict.values.isEmpty {
                 }
                     else {
                     var labelCnt = 0
-                    let sortedKeys: Array = (itemDict as NSDictionary).keysSortedByValue(comparator: { ($1 as! NSNumber ).compare($0 as! NSNumber ) })
-//                    let sortedKeys:Array = (itemDict as NSDictionary).keysSortedByValueUsingSelector(#selector(NSNumber.compare(_:)))
+                    let sortedKeys: Array = (appDict as NSDictionary).keysSortedByValue(comparator: { ($1 as! NSNumber ).compare($0 as! NSNumber ) })
+//                    let sortedKeys:Array = (appDict as NSDictionary).keysSortedByValueUsingSelector(#selector(NSNumber.compare(_:)))
                         for applic in sortedKeys {
-                            let appTime = itemDict["\(applic)"]
+                            let appTime = appDict["\(applic)"]
                             print("upDateClock => \(applic): \(appTime)")
                             switch labelCnt {
                                 case 0 : label01.text = "\(applic)"; label02.text = "\(appTime!)"
@@ -108,8 +107,8 @@ class ViewController: UIViewController {
         }
 
     func updateTimer() {
-        seconds += 1
-        timerViewLabel.text = "\(seconds)"
+        appSeconds += 1
+        timerViewLabel.text = "\(appSeconds)"
     }
     
     override func viewDidLoad() {
@@ -145,8 +144,8 @@ class ViewController: UIViewController {
     
     @IBAction func refreshButton(_ sender: AnyObject) {
         //        timer.invalidate()
-        seconds = 0
-        timerViewLabel.text = "\(seconds)"
+        appSeconds = 0
+        timerViewLabel.text = "\(appSeconds)"
     }
 
     
@@ -155,16 +154,16 @@ class ViewController: UIViewController {
             errCodeViewLabel.text = "Timer is not running"
         }
         if timerIsOn {
-            var totalTimeUsed = itemDict[appName]!
-            print("stopButton => appName: \(appName) Total: \(itemDict[appName]!)")
-            totalTimeUsed = totalTimeUsed + seconds
+            var totalTimeUsed = appDict[appName]!
+            print("stopButton => appName: \(appName) Total: \(appDict[appName]!)")
+            totalTimeUsed = totalTimeUsed + appSeconds
             print("stopButton => total + timer: \(totalTimeUsed)")
-            itemDict[appName] = totalTimeUsed
-            print("stopButton => appName: \(appName) Total: \(itemDict[appName]!)")
+            appDict[appName] = totalTimeUsed
+            print("stopButton => appName: \(appName) Total: \(appDict[appName]!)")
             print("stopButton => \(appName) Timer stopped.")
             timer.invalidate()
-            seconds = 0
-            timerViewLabel.text = "\(seconds)"
+            appSeconds = 0
+            timerViewLabel.text = "\(appSeconds)"
             appName = "none"
             appRunning = "none"
             timerIsOn = false
@@ -173,17 +172,17 @@ class ViewController: UIViewController {
     
     func stopFunc() {
         if timerIsOn {
-            var totalTimeUsed = itemDict[appName]!
-            print("stopFunc => appName: \(appName) Total: \(itemDict[appName]!)")
-            totalTimeUsed = totalTimeUsed + seconds
+            var totalTimeUsed = appDict[appName]!
+            print("stopFunc => appName: \(appName) Total: \(appDict[appName]!)")
+            totalTimeUsed = totalTimeUsed + appSeconds
             print("stopFunc => total + timer: \(totalTimeUsed)")
-            itemDict[appName] = totalTimeUsed
-            print("stopFunc => appName: \(appName) Total: \(itemDict[appName]!)")
+            appDict[appName] = totalTimeUsed
+            print("stopFunc => appName: \(appName) Total: \(appDict[appName]!)")
             print("stopFunc => \(appName) Timer stopped.")
-            itemDict[appName] = totalTimeUsed
+            appDict[appName] = totalTimeUsed
             timer.invalidate()
-            seconds = 0
-            timerViewLabel.text = "\(seconds)"
+            appSeconds = 0
+            timerViewLabel.text = "\(appSeconds)"
             appName = "none"
             appRunning = "none"
             timerIsOn = false
@@ -199,12 +198,12 @@ class ViewController: UIViewController {
             print("startTimer=> timerIsOn but \(appName) is not \(appRunning) ..!. calling stopFunc ...")
             stopFunc()
         }
-        if itemDict[appName] == nil {
+        if appDict[appName] == nil {
             print("startTimer => ... App named \(appName) Not in Dict, calling loadDict ...")
             loadDictItem(appName)
         }
         timerViewLabel.text = "0"
-        seconds = 0
+        appSeconds = 0
         timer = Timer.scheduledTimer(timeInterval: 1, target: self, selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
         appRunning = appName
         timerIsOn = true
